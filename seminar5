@@ -1,0 +1,151 @@
+Задача 1: Напишите программу, которая на вход принимает позиции элемента в двумерном массиве, и возвращает значение этого элемента или же указание, что такого элемента нет.
+
+using System;
+
+class Program
+
+{
+    static void Main(string[] args)
+    {
+        int[,] array = new int[,] { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
+        int rowsCount = array.GetLength(0);
+        int columnsCount = array.GetLength(1);
+        Console.WriteLine("Массив:");
+        for (int i = 0; i < rowsCount; i++)
+        {
+            for (int j = 0; j < columnsCount; j++)
+            {
+                Console.Write(array[i, j] + " ");
+            }
+            Console.WriteLine();
+        }
+        Console.Write("Введите номер строки элемента: ");
+        int row = int.Parse(Console.ReadLine()) - 1;
+        Console.Write("Введите номер столбца элемента: ");
+        int column = int.Parse(Console.ReadLine()) - 1;
+        if (row >= 0 && row < rowsCount && column >= 0 && column < columnsCount)
+        {
+            Console.WriteLine("Значение элемента: " + array[row, column]);
+        }
+        else
+        {
+            Console.WriteLine("Такого элемента нет");
+        }
+        Console.ReadLine();
+    }
+}
+
+
+Задача 2: Задайте двумерный массив. Напишите программу, которая поменяет местами первую и последнюю строку массива.
+
+using System;
+
+class MainClass {
+  public static void Main (string[] args) {
+    int[,] array = {
+      {1, 2, 3},
+
+      {4, 5, 6},
+
+      {7, 8, 9}
+    };
+    int rows = array.GetLength(0);
+    int columns = array.GetLength(1);
+    Console.WriteLine("Исходный массив:");
+    PrintArray(array);
+    for (int i = 0; i < columns; i++) {
+      int temp = array[0, i];
+      array[0, i] = array[rows - 1, i];
+      array[rows - 1, i] = temp;
+    }
+    Console.WriteLine("Измененный массив:");
+    PrintArray(array);
+  }
+  public static void PrintArray(int[,] array) {
+    int rows = array.GetLength(0);
+    int columns = array.GetLength(1);
+    for (int i = 0; i < rows; i++) {
+      for (int j = 0; j < columns; j++) {
+        Console.Write(array[i, j] + " ");
+      }
+      Console.WriteLine();
+    }
+  }
+}
+
+
+Задача 3: Задайте прямоугольный двумерный массив. Напишите программу, которая будет находить строку с наименьшей суммой элементов.
+
+Console.WriteLine("Введите количество строк в массиве:");
+int rows = int.Parse(Console.ReadLine());
+Console.WriteLine("Введите количество столбцов в массиве:");
+int cols = int.Parse(Console.ReadLine());
+int[,] arr = new int[rows, cols];
+for (int i = 0; i < rows; i++)
+{
+    for (int j = 0; j < cols; j++)
+    {
+        Console.WriteLine($"Введите элемент массива [{i}][{j}]:");
+        arr[i, j] = int.Parse(Console.ReadLine());
+    }
+}
+
+
+Задача 4. Задайте двумерный массив из целых чисел. Напишите программу, которая удалит строку и столбец, на пересечении которых расположен наименьший элемент массива. Под удалением понимается создание нового двумерного массива без строки и столбца
+
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        int[,] array = new int[,]
+        {
+            { 5, 4, 2 },
+            { 3, 1, 6 },
+            { 9, 7, 8 }
+        };
+        int minElement = int.MaxValue;
+        int minRow = 0;
+        int minCol = 0;
+        for (int row = 0; row < array.GetLength(0); row++)
+        {
+            for (int col = 0; col < array.GetLength(1); col++)
+            {
+                if (array[row, col] < minElement)
+                {
+                    minElement = array[row, col];
+                    minRow = row;
+                    minCol = col;
+                }
+            }
+        }
+        int[,] newArray = new int[array.GetLength(0) - 1, array.GetLength(1) - 1];
+        int newRow = 0;
+        int newCol = 0;
+        for (int row = 0; row < array.GetLength(0); row++)
+        {
+            if (row != minRow)
+            {
+                for (int col = 0; col < array.GetLength(1); col++)
+                {
+                    if (col != minCol)
+                    {
+                        newArray[newRow, newCol] = array[row, col];
+                        newCol++;
+                    }
+                }
+                newRow++;
+                newCol = 0;
+            }
+        }
+        for (int row = 0; row < newArray.GetLength(0); row++)
+        {
+            for (int col = 0; col < newArray.GetLength(1); col++)
+            {
+                Console.Write(newArray[row, col] + " ");
+            }
+            Console.WriteLine();
+        }
+    }
+}
